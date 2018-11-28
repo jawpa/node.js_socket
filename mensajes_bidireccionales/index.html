@@ -1,0 +1,45 @@
+<!-- recursos consumidos por el navegdor -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Contador de comunicaciones con Socket.IO</title>
+</head>
+<body>
+	<h1>Comunicación bidireccional</h1>
+	<p id="hello"></p>	
+	<!-- busca el archivo en node_modules -->
+	<!-- invocamos el source -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		// ejucutar una función del lado del cliente
+		// función anónima autoejecutable: 
+		// el segundo paréntesis ejecuta lo que hay en el primero que es una función
+		// es una forma de proteger código
+		// al parámetro lo lee del source invocado
+	  (function (io){
+	  		'use strict'
+	  		// el io que está en el servidor, lo instanciamos en el cliente
+	  		// porque lo va a usar
+	  		var io = io(),
+	  			d = document
+
+
+	  		// trata de manejar un evento que se llama 'hello'
+	  		// callback que recibe el cliente cuando recibe un mensaje hello del servidor
+	  		// del lado del cliente puede no reconocer las array functions
+	  		io.on('hello',(data)=>{
+	  				// se escribe en la consola del navegador
+	  				console.log(data)
+	  				d.querySelector('#hello').innerHTML = data.message
+
+	  				// el cliente emite un mensaje
+	  				// lo captura el servidor y lo vemos en la consola del servidor
+	  				io.emit('evento emitido por el cliente',{ name : 'cliente emisor', mensaje : 'hola servidor, soy el cliente'}) 
+	  			})
+	  		})(io)
+	</script>
+
+
+	</body>
+</html>
