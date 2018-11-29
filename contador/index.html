@@ -29,15 +29,15 @@
 	  		// callback que recibe el cliente cuando recibe un mensaje hello del servidor
 	  		// del lado del cliente puede no reconocer las array functions
 	  		io.on('hello',(data)=>{
-  				// se escribe en la consola del navegador
-  				console.log(data)
-  				d.querySelector('#hello').innerHTML = data.message
+	  				// se escribe en la consola del navegador
+	  				console.log(data)
+	  				d.querySelector('#hello').innerHTML = data.message
 
-  				// el cliente emite un mensaje
-  				// lo captura el servidor y lo vemos en la consola del servidor
-  				io.emit('evento emitido por el cliente',{ name : 'cliente emisor', mensaje : 'hola servidor, soy el cliente'}) 
-	  		})
-	  	})(io)
+	  				// el cliente emite un mensaje
+	  				// lo captura el servidor y lo vemos en la consola del servidor
+	  				io.emit('evento emitido por el cliente',{ name : 'cliente emisor', mensaje : 'hola servidor, soy el cliente'}) 
+	  			})
+	  		})(io)
 	</script>
 
 

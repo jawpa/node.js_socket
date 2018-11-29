@@ -1,3 +1,4 @@
 mensajes_bidireccionales/node_modules/
+contador/node_modules/
 *.log
 .DS_Store
