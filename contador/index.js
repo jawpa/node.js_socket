@@ -26,7 +26,7 @@ function server(req,res){
 }
 
 http.listen(3000)
-console.log('servidor corriendo')
+console.log('servidor corriendo desde el puerto 3000')
 
 // inicializamos el socket con el evento predefinido connection
 // para iniciar la comunicación bidireccional
@@ -36,7 +36,25 @@ io.on('connection',(socket) => {
 	socket.emit('hello',{message : 'hola mundo socket'})
 
 	// recibe el mensaje del cliente
-	socket.on('evento emitido por el cliente',(data) => {
-		console.log(data)
+	// socket.on('evento emitido por el cliente',(data) => {
+	// 	console.log(data)
+	// })
+
+	conexiones++
+
+	console.log(`conexiones activas ${conexiones}`)
+
+	// el servidor emite al cliente
+	socket.emit('conexiones de usuarios',{numero : conexiones})
+
+	// cuando se comunica un mensaje a todos los clientes salvo al que lo emite
+	socket.broadcast.emit('conexiones de usuarios',{numero : conexiones})
+
+	// definimos al evento disconnect
+	socket.on('disconnect',()=>{
+		conexiones--
+		console.log(`conexiones activas ${conexiones}`)
+		// comunica un mensaje a todos los clientes menos al que lo emite
+		socket.broadcast.emit('conexiones de usuarios',{numero : conexiones})
 	})
 })

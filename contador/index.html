@@ -8,6 +8,7 @@
 <body>
 	<h1>Comunicación bidireccional</h1>
 	<p id="hello"></p>	
+	<p>Número de conexiones activas <b id="conexiones"></b></p>
 	<!-- busca el archivo en node_modules -->
 	<!-- invocamos el source -->
 	<script src="/socket.io/socket.io.js"></script>
@@ -25,19 +26,33 @@
 	  			d = document
 
 
-	  		// trata de manejar un evento que se llama 'hello'
-	  		// callback que recibe el cliente cuando recibe un mensaje hello del servidor
+	  		// callback que desde el cliente captura al evento hello del servidor
 	  		// del lado del cliente puede no reconocer las array functions
 	  		io.on('hello',(data)=>{
 	  				// se escribe en la consola del navegador
 	  				console.log(data)
+	  				// escribimo en la página
 	  				d.querySelector('#hello').innerHTML = data.message
 
 	  				// el cliente emite un mensaje
 	  				// lo captura el servidor y lo vemos en la consola del servidor
 	  				io.emit('evento emitido por el cliente',{ name : 'cliente emisor', mensaje : 'hola servidor, soy el cliente'}) 
-	  			})
-	  		})(io)
+	  		})
+
+
+	  		// escucha al evento "conexiones de usuarios"
+	  		io.on('conexiones de usuarios',(data)=>{
+	  				// se escribe en la consola del navegador
+	  				console.log(`actualizando desde el servidor. Hay ${data.numero}`)
+	  				// escribimos en la página html
+	  				d.querySelector('#conexiones').innerHTML = data.numero
+
+	  				// el cliente emite un mensaje
+	  				// lo captura el servidor y lo vemos en la consola del servidor
+	  				io.emit('evento emitido por el cliente',{ name : 'cliente emisor', mensaje : 'hola servidor, soy el cliente'}) 
+	  		})
+	  	
+	  	})(io)
 	</script>
 
 
