@@ -1,5 +1,6 @@
 mensajes_bidireccionales/node_modules/
 contador/node_modules/
 chat/node_modules/
+chat_prefabricado/node_modules/
 *.log
 .DS_Store
